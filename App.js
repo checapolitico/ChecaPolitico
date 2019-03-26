@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
-import Main from './screens/Main'
+import Main from './screens/Main';
+import PoliticianDetails from './screens/PoliticianDetails';
+import {createStackNavigator, createAppContainer} from 'react-navigation';
 
 
-export default class App extends Component<Props> {
+const MainNavigator = createStackNavigator({
+  Main: {screen: Main},
+  PoliticianDetails: {screen: PoliticianDetails},
+},
+{initialRouteName: "Main"});
 
-  render() {
-    return (
-      <View>
-        <Main/>
-      </View>
-    );
-  }
-}
+const App = createAppContainer(MainNavigator);
+
+export default App;

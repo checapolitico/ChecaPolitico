@@ -4,10 +4,9 @@ import {
   Text,
   View,
   Image,
-  Dimensions,
-  TextInput,
+  TouchableOpacity,
 } from 'react-native';
-import InformationField from './InformationField'
+import InformationField from './InformationField';
 
 export default class PoliticianSummary extends Component {
 
@@ -16,16 +15,21 @@ export default class PoliticianSummary extends Component {
   }
 
   render() {
-    const politician = JSON.parse(JSON.stringify(this.props.politician)); //pesquisar como já receber o objeto correto
-    console.log(politician);
+    const politician = JSON.parse(JSON.stringify(this.props.politician)); //Change to the correct way
     return (
-      <View style={styles.container}>
-        <Image source={{uri: politician.photo}}
-               style={styles.photo}/>
-        <View style={styles.infoContainer}>
-          <InformationField field="Nome" information={politician.name} />
-          <InformationField field="Partido" information={this.getParty(politician)} />
-        </View>
+      <View>
+        <TouchableOpacity onPress={() => {
+          this.props.navigation.navigate('PoliticianDetails', {id: politician.id});
+        }}>
+          <View style={styles.container}>
+            <Image source={{uri: politician.photo}}
+                   style={styles.photo}/>
+            <View style={styles.infoContainer}>
+              <InformationField field="Nome" information={politician.name} />
+              <InformationField field="Partido" information={this.getParty(politician)} />
+            </View>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }

@@ -5,13 +5,13 @@ import {
   View,
 } from 'react-native';
 
-export default class InformationField extends Component {
+export default class LabeledInformation extends Component {
 
   render() {
-    const {field, information} = this.props;
+    const {label, information} = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.field}>{field}: </Text>
+        <Text style={styles.label}>{label}: </Text>
         <Text style={styles.information}>{information}</Text>
       </View>
     );
@@ -20,18 +20,16 @@ export default class InformationField extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: 'column',
   },
-  field: {
+  label: {
     fontWeight: 'bold',
     color: '#000',
-    fontSize: 20,
-    flexWrap:'wrap'
+    fontSize: 15,
   },
   information: {
     color: '#000',
     fontSize: 20,
-    flexWrap: 'wrap',
-    flex: 1
+    marginLeft: 20
   }
 });

@@ -20,7 +20,7 @@ export default class SearchInput extends Component {
     return (
       <View style={styles.container}>
         <TextInput style={styles.input}
-            placeholder="Digite o nome de um deputado..."
+            placeholder="Write a deputy name..."
             ref={input => this.searchInput = input}
             onChangeText={texto => this.setState({politicianName: texto})}/>
 

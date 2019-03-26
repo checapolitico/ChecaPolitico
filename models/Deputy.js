@@ -1,7 +1,7 @@
 export default {
   id: 'id',
   dados: 'data',
-  ultimaAtualizacao: 'lastUpdate',
+  ultimoStatus: 'lastStatus',
   nome: 'name',
   siglaPartido: 'party',
   uriPartido: 'partyUrl',
@@ -23,5 +23,14 @@ export default {
   predio: 'building',
   telefone: 'phone',
   andar: 'floor',
-  data: 'date'
+  data: 'date',
+  fieldInformation: {
+    name: {label: 'Nome'},
+    party: {label: 'Partido'},
+    dateOfBirth: {label: 'Data de Nascimento'},
+    oficialDocument: {label: 'CPF'},
+    scholarship: {label: 'Escolaridade'},
+    email: {label: 'E-mail'},
+    phone: {label: 'Telefone'}
+  }
 }

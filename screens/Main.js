@@ -2,11 +2,15 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, ScrollView, FlatList, View} from 'react-native';
 import Notification from '../utils/Notification';
 import HouseOfRepresentatives from '../services/HouseOfRepresentatives';
-import PoliticianSummary from '../components/PoliticianSummary'
-import NoResults from '../components/NoResults'
-import SearchInput from '../components/SearchInput'
+import PoliticianSummary from '../components/PoliticianSummary';
+import NoResults from '../components/NoResults';
+import SearchInput from '../components/SearchInput';
 
 export default class Main extends Component {
+  static navigationOptions = {
+    header: null,
+  };
+
   constructor() {
     super();
     this.state = {
@@ -32,7 +36,7 @@ export default class Main extends Component {
           searchInput.clear();
         })
       .catch(e => {
-        Notification.show('Falha','Erro ao tentar realizar pesquisa');
+        Notification.show('Error','Error trying to retrieve information');
       })
   }
 
@@ -46,7 +50,9 @@ export default class Main extends Component {
               data={this.state.data}
               ListEmptyComponent={this._listEmptyComponent}
               renderItem={ ({item}) =>
-                <PoliticianSummary politician={item} />
+                <PoliticianSummary
+                  politician={item}
+                  navigation={this.props.navigation}/>
               }
           />
       </ScrollView>
