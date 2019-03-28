@@ -3,11 +3,14 @@ import {
   StyleSheet,
   Text,
   ScrollView,
+  View,
   Image,
   Dimensions,
 } from 'react-native';
 import HouseOfRepresentatives from '../services/HouseOfRepresentatives';
 import LabeledInformation from '../components/LabeledInformation';
+import Favorite from '../components/Favorite';
+import PoliticianUtils from '../utils/PoliticianUtils';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -19,7 +22,7 @@ export default class PoliticianDetails extends Component {
 
   constructor() {
     super();
-    this.state = {data: {lastStatus: {cabinet: {}}}};
+    this.state = {data: {lastStatus: {cabinet: {}}, favorited: false}};
   }
 
   componentDidMount() {
@@ -38,6 +41,10 @@ export default class PoliticianDetails extends Component {
               response.data.lastStatus.photo += 'maior.jpg'; //Get photo with better quality
             }
             this.setState({data: response.data});
+            PoliticianUtils.isFavorited(this.state.data.id)
+              .then(favorited => {
+                this.updateFavoritePolitician(favorited);
+              });
           });
       }
     }
@@ -48,11 +55,27 @@ export default class PoliticianDetails extends Component {
       <ScrollView>
         <Image source={{uri: this.state.data.lastStatus.photo}}
                style={styles.photo}/>
-        <Text style={styles.header}>{this.state.data.lastStatus.name}</Text>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>{this.state.data.lastStatus.name}</Text>
+          <Favorite target={this.state.data} favoriteCallback={this.favoritePolitician.bind(this)} />
+        </View>
         <LabeledInformation label='E-mail' information={this.state.data.lastStatus.cabinet.email} />
         <LabeledInformation label='Telefone' information={this.state.data.lastStatus.cabinet.phone} />
       </ScrollView>
     );
+  }
+
+  favoritePolitician (politician) {
+    PoliticianUtils.favorite(politician)
+      .then(favorited => {
+        this.updateFavoritePolitician(favorited);
+      });
+  }
+
+  updateFavoritePolitician(favorited) {
+    let newData = this.state.data;
+    newData.favorited = favorited;
+    this.setState({data: newData});
   }
 }
 
@@ -62,6 +85,9 @@ const styles = StyleSheet.create({
     height: screenWidth,
   },
   header: {
+    flexDirection: 'row'
+  },
+  headerText: {
     fontWeight: 'bold',
     color: '#000',
     fontSize: 25,
