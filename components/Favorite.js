@@ -31,6 +31,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     height: 40,
     width: 40,
-    tintColor: 'yellow'
+    tintColor: '#aa0'
   }
 });

@@ -11,7 +11,14 @@ export default class PoliticianUtils {
           favoritedPoliticians = [];
         }
         if (!politician.favorited) {
-          favoritedPoliticians = [...favoritedPoliticians,politician.id];
+          const favoriteObject = {
+              id: politician.id,
+              photo: politician.photo.replace('maior.jpg',''),
+              name: politician.name,
+              party: politician.party,
+              state: politician.state
+          };
+          favoritedPoliticians = [...favoritedPoliticians,favoriteObject];
         } else {
           favoritedPoliticians = favoritedPoliticians.filter(favoritedPolitician => {
             return favoritedPolitician.id  !== politician.id;
@@ -25,10 +32,16 @@ export default class PoliticianUtils {
   static isFavorited(politicianId) {
     return AsyncStorage.getItem('favoritedPoliticians')
       .then(favoritedPoliticians => {
-        console.log(favoritedPoliticians);
-        return favoritedPoliticians ?
-                JSON.parse(favoritedPoliticians).indexOf(politicianId) > -1 : false;
+        if(!favoritedPoliticians) return;
+        return JSON.parse(favoritedPoliticians).some(politician => politician.id == politicianId);
       });
+  }
+
+  static getFavorites() {
+    return AsyncStorage.getItem('favoritedPoliticians')
+             .then(favoritedPoliticians => {
+               return JSON.parse(favoritedPoliticians)
+             });
   }
 
 }

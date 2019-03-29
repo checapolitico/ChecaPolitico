@@ -40,11 +40,11 @@ export default class PoliticianDetails extends Component {
             if(response.data.lastStatus.photo) {
               response.data.lastStatus.photo += 'maior.jpg'; //Get photo with better quality
             }
+            PoliticianUtils.isFavorited(response.data.id)
+            .then(favorited => {
+              this.updateFavoritePolitician(favorited);
+            });
             this.setState({data: response.data});
-            PoliticianUtils.isFavorited(this.state.data.id)
-              .then(favorited => {
-                this.updateFavoritePolitician(favorited);
-              });
           });
       }
     }
@@ -85,14 +85,14 @@ const styles = StyleSheet.create({
     height: screenWidth,
   },
   header: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    borderBottomColor: 'black',
+    borderBottomWidth: 1
   },
   headerText: {
     fontWeight: 'bold',
     color: '#000',
     fontSize: 25,
     textAlign: 'center',
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
   }
 });

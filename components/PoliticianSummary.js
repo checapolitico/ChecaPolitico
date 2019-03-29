@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import InformationField from './InformationField';
+import Favorite from './Favorite';
 
 export default class PoliticianSummary extends Component {
 
@@ -16,6 +17,7 @@ export default class PoliticianSummary extends Component {
 
   render() {
     const politician = JSON.parse(JSON.stringify(this.props.politician)); //Change to the correct way
+    const favoriteCallback = this.props.favoriteCallback;
     return (
       <View>
         <TouchableOpacity onPress={() => {
@@ -28,6 +30,7 @@ export default class PoliticianSummary extends Component {
               <InformationField field="Nome" information={politician.name} />
               <InformationField field="Partido" information={this.getParty(politician)} />
             </View>
+            <Favorite target={politician} favoriteCallback={favoriteCallback} />
           </View>
         </TouchableOpacity>
       </View>
