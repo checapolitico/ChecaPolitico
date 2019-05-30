@@ -1,0 +1,14 @@
+version: '3.2'
+services:
+  checapolitico:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: jayrorrc/checapolitico:latest
+    container_name: checapolitico
+    ports:
+      - 8081:8081
+    volumes:
+      - type: bind
+        source: ./
+        target: /opt/checapolitico
