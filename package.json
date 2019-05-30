@@ -9,10 +9,12 @@
   },
   "dependencies": {
     "deep-map-keys": "^2.0.1",
-    "react": "16.6.3",
-    "react-native": "0.58.6",
+    "jest-haste-map": "^24.8.0",
+    "react": "^16.8.3",
+    "react-native": "^0.59.8",
     "react-native-gesture-handler": "^1.1.0",
-    "react-navigation": "^3.5.1"
+    "react-navigation": "^3.5.1",
+    "yarn": "^1.16.0"
   },
   "devDependencies": {
     "babel-core": "7.0.0-bridge.0",
